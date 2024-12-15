@@ -4,12 +4,33 @@ from .models import Avaliacao, Comentario
 from .forms import ComentarioForm, AvaliacaoForm
 from django.db.models import Avg
 from math import ceil
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.forms import AuthenticationForm
 
 def index(request):
     return render(request, 'learning_logs/index.html')
 
 
-#@login_required
+def logout_view(request):
+    logout(request)
+    return redirect('login') 
+
+def login_view(request):
+    if request.method == 'POST':
+        form = AuthenticationForm(data=request.POST)
+        if form.is_valid():
+            # Autentica o usuário com os dados do form
+            user = form.get_user()
+            login(request, user)
+            # Redireciona para a página inicial ou a 'next' se existir
+            next_url = request.GET.get('next', 'index')
+            return redirect(next_url)
+    else:
+        form = AuthenticationForm()
+
+    return render(request, 'learning_logs/login.html', {'form': form})
+
+@login_required
 def fila(request):
     if request.method == 'POST':
         form = ComentarioForm(request.POST)
@@ -29,7 +50,7 @@ def fila(request):
     }
     return render(request, 'learning_logs/fila.html', context)
 
-#@login_required
+@login_required
 def almoço(request):
     if request.method == 'POST':
         nota = request.POST.get('nota')
@@ -53,7 +74,7 @@ def almoço(request):
     }
     return render(request, 'learning_logs/almoço.html', context)
 
-#@login_required
+@login_required
 def jantar(request):
     if request.method == 'POST':
         nota = request.POST.get('nota')
@@ -98,7 +119,7 @@ def avaliacoes(request):
     }
     return render(request, 'learning_logs/avaliacoes.html', context)
 
-#@login_required
+@login_required
 def like_comentario(request, comentario_id):
     try:
         comentario = Comentario.objects.get(id=comentario_id)
@@ -107,7 +128,7 @@ def like_comentario(request, comentario_id):
         return redirect('avaliacoes')
     return redirect('avaliacoes')
 
-#@login_required
+@login_required
 def dislike_comentario(request, comentario_id):
     try:
         comentario = Comentario.objects.get(id=comentario_id)
@@ -116,7 +137,7 @@ def dislike_comentario(request, comentario_id):
         return redirect('avaliacoes')
     return redirect('avaliacoes')
 
-#@login_required
+@login_required
 def remover_like_comentario(request, comentario_id):
     try:
         comentario = Comentario.objects.get(id=comentario_id)
@@ -125,7 +146,7 @@ def remover_like_comentario(request, comentario_id):
         return redirect('avaliacoes')
     return redirect('avaliacoes')
 
-#@login_required
+@login_required
 def remover_dislike_comentario(request, comentario_id):
     try:
         comentario = Comentario.objects.get(id=comentario_id)
@@ -134,7 +155,7 @@ def remover_dislike_comentario(request, comentario_id):
         return redirect('avaliacoes')
     return redirect('avaliacoes')
 
-#@login_required
+@login_required
 def novo_comentario(request):
     if request.method == 'POST':
         form = ComentarioForm(request.POST)
@@ -152,7 +173,7 @@ def listar_comentarios(request):
     context = {'comentarios': comentarios}
     return render(request, 'learning_logs/listar_comentarios.html', context)
 
-#@login_required
+@login_required
 def editar_comentario(request, comentario_id):
     comentario = Comentario.objects.get(id=comentario_id)
     if request.method == 'POST':
@@ -164,13 +185,13 @@ def editar_comentario(request, comentario_id):
         form = ComentarioForm(instance=comentario)
     return render(request, 'learning_logs/editar_comentario.html', {'form': form, 'comentario': comentario})
 
-#@login_required
+@login_required
 def excluir_comentario(request, comentario_id):
     comentario = Comentario.objects.get(id=comentario_id)
     comentario.delete()
     return redirect('listar_comentarios')
 
-#@login_required
+@login_required
 def avaliar_almoço(request):
     if request.method == 'POST':
         form = AvaliacaoForm(request.POST)
@@ -184,7 +205,7 @@ def avaliar_almoço(request):
         form = AvaliacaoForm()
     return render(request, 'learning_logs/avaliar_almoço.html', {'form': form})
 
-#@login_required
+@login_required
 def avaliar_jantar(request):
     if request.method == 'POST':
         form = AvaliacaoForm(request.POST)
@@ -198,7 +219,7 @@ def avaliar_jantar(request):
         form = AvaliacaoForm()
     return render(request, 'learning_logs/avaliar_jantar.html', {'form': form})
 
-#@login_required
+@login_required
 def editar_avaliacao(request, avaliacao_id):
     avaliacao = Avaliacao.objects.get(id=avaliacao_id)
     if request.method == 'POST':
@@ -210,7 +231,7 @@ def editar_avaliacao(request, avaliacao_id):
         form = AvaliacaoForm(instance=avaliacao)
     return render(request, 'learning_logs/editar_avaliacao.html', {'form': form, 'avaliacao': avaliacao})
 
-#@login_required
+@login_required
 def excluir_avaliacao(request, avaliacao_id):
     avaliacao = Avaliacao.objects.get(id=avaliacao_id)
     if request.method == 'POST':
@@ -223,7 +244,7 @@ def detalhar_avaliacao(request, avaliacao_id):
     context = {'avaliacao': avaliacao}
     return render(request, 'learning_logs/detalhar_avaliacao.html', context)
 
-#@login_required
+@login_required
 def listar_avaliacoes_usuario(request):
     avaliacoes = Avaliacao.objects.filter(usuario=request.user)
     context = {'avaliacoes': avaliacoes}

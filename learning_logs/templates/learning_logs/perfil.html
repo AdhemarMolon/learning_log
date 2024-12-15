@@ -19,6 +19,7 @@
         margin-bottom: 2rem;
         text-align: center;
         box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+        position: relative;
     }
 
     .container h1, .container h2 {
@@ -98,8 +99,8 @@
         margin-bottom: 1rem;
     }
 
-    /* Botão estilizado */
-    .card button, .back-button {
+    /* Botões estilizados */
+    .card button, .back-button, .logout-button {
         background-color: #3498db;
         color: white;
         padding: 0.75rem 1.5rem;
@@ -109,18 +110,14 @@
         font-weight: 600;
         cursor: pointer;
         transition: all 0.3s ease;
-        margin-top: 1rem; /* Margem superior para o botão de voltar */
+        margin-top: 1rem; /* Margem superior para dar espaçamento */
+        text-decoration: none;
+        display: inline-block;
     }
 
-    .card button:hover, .back-button:hover {
+    .card button:hover, .back-button:hover, .logout-button:hover {
         background-color: #2980b9;
         transform: translateY(-2px);
-    }
-
-    /* Estilo do botão de voltar */
-    .back-button {
-        display: inline-block;
-        text-align: center;
     }
 
     /* Decoração para círculos de fundo */
@@ -165,9 +162,11 @@
     <p class="card-header">{{ user.username }}</p>
     <p class="job">Usuário registrado</p>
     <button><i class="fas fa-edit"></i> Editar Perfil</button>
+    <a href="{% url 'logout' %}" class="back-button">Sair</a>
 </div>
 
-<!-- Botão de voltar para a homepage -->
+<!-- Botões de navegação -->
 <a href="/" class="back-button"><i class="fas fa-home"></i> Voltar para a Homepage</a>
+
 
 {% endblock %}

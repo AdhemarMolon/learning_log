@@ -3,7 +3,7 @@
 *.pot
 *.pyc
 __pycache__
-db.sqlite3
+# db.sqlite3 # Vamos deixar a db carregada pra que já tenham alguns dados de teste
 media
 
 # Backup files # 
@@ -106,7 +106,7 @@ ENV/
 env.bak/ 
 venv.bak/ 
 mb_env/
-ll_env/
+
 
 # mkdocs documentation 
 /site 
