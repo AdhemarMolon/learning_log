@@ -1,0 +1,236 @@
+{% block content %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<style>
+/* Fonte padrão */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f7fa;
+    color: #2c3e50;
+    margin: 0;
+    padding: 2rem;
+}
+
+/* Estilo do botão de voltar */
+.botao-voltar {
+    background-color: #7f8c8d;
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+}
+
+.botao-voltar:hover {
+    background-color: #c0392b;
+}
+
+/* Estilo do hero */
+.jantar-hero {
+    background: linear-gradient(135deg, #2c3e50, #3498db);
+    color: white;
+    padding: 2rem;
+    border-radius: 15px;
+    margin-bottom: 2rem;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.jantar-hero h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.jantar-hero p {
+    font-size: 1.2rem;
+    opacity: 0.9;
+}
+
+/* Estilo do container de avaliação */
+.avaliacao-container {
+    background: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2rem;
+}
+
+.avaliacao-container h2 {
+    display: flex;
+    align-items: center;
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    color: #2c3e50;
+}
+
+.avaliacao-container h2 i {
+    margin-right: 0.5rem;
+    color: #3498db;
+}
+
+/* Estilo do grupo de rádio */
+.radio-group {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.5rem;
+}
+
+.radio-label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    padding: 0.5rem 1.2rem;
+    border-radius: 20px;
+    background: #f8f9fa;
+    transition: all 0.3s ease;
+    border: 1px solid #ddd;
+}
+
+.radio-label:hover {
+    background: #e9ecef;
+    transform: translateY(-2px);
+}
+
+.radio-label input[type="radio"] {
+    margin: 0;
+    cursor: pointer;
+}
+
+/* Estilo do botão */
+.botao {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.botao:hover {
+    background-color: #2980b9;
+    transform: translateY(-2px);
+}
+
+/* Estilo atualizado da área de comentários */
+.comentario-area {
+    margin-top: 1.5rem;
+}
+
+.comentario-area h3 {
+    display: flex;
+    align-items: center;
+    font-size: 1.4rem;
+    color: #2c3e50;
+    margin-bottom: 1rem;
+}
+
+.comentario-area h3 i {
+    margin-right: 0.5rem;
+    color: #3498db;
+}
+
+.comentario-area textarea {
+    width: 100%;
+    min-height: 120px;
+    padding: 1rem;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+    font-family: inherit;
+    resize: vertical;
+    background-color: #f8f9fa;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #2c3e50;
+}
+
+.comentario-area textarea:focus {
+    outline: none;
+    border-color: #3498db;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+    background-color: white;
+}
+
+.comentario-area textarea::placeholder {
+    color: #95a5a6;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .radio-group {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .radio-label {
+        width: 100%;
+    }
+}
+</style>
+
+<!-- Botão de voltar -->
+<button class="botao-voltar" onclick="window.location.href='/'">
+    <i class="fas fa-arrow-left"></i> Voltar para a Homepage
+</button>
+
+<div class="jantar-hero">
+    <h1><i class="fas fa-utensils"></i> Jantar</h1>
+    <p>Aqui você pode avaliar o jantar de hoje</p>
+</div>
+
+<div class="avaliacao-container">
+    <h2 class="avaliacao-titulo"><i class="fas fa-star"></i> Como você avalia o jantar de hoje?</h2>
+    <form method="post" action="{% url 'jantar' %}">
+        {% csrf_token %}
+        <div class="radio-group">
+            <label class="radio-label">
+                <input type="radio" name="nota" value="5">
+                <i class="fas fa-smile-beam"></i> Excelente
+            </label>
+            <label class="radio-label">
+                <input type="radio" name="nota" value="4">
+                <i class="fas fa-smile"></i> Bom
+            </label>
+            <label class="radio-label">
+                <input type="radio" name="nota" value="3">
+                <i class="fas fa-meh"></i> Regular
+            </label>
+            <label class="radio-label">
+                <input type="radio" name="nota" value="2">
+                <i class="fas fa-frown"></i> Ruim
+            </label>
+            <label class="radio-label">
+                <input type="radio" name="nota" value="1">
+                <i class="fas fa-angry"></i> Péssimo
+            </label>
+        </div>
+        
+        <div class="comentario-area">
+            <h3><i class="fas fa-comment"></i> Deixe seu comentário</h3>
+            <textarea 
+                name="comentario" 
+                placeholder="O que você achou do jantar de hoje? Compartilhe sua experiência..."
+            ></textarea>
+        </div>
+        
+        <button type="submit" class="botao">
+            <i class="fas fa-paper-plane"></i> Enviar Avaliação e Comentário
+        </button>
+    </form>
+</div>
+
+{% endblock %}

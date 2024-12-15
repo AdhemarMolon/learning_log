@@ -1,0 +1,159 @@
+{% block content %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<style>
+    /* Fonte padrão */
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f7fa;
+        color: #2c3e50;
+        margin: 0;
+        padding: 2rem;
+        padding-top: 5rem; /* Espaço extra para o botão de voltar */
+    }
+
+    /* Botão de voltar no canto superior esquerdo */
+    .botao-voltar {
+        background-color: #7f8c8d;
+        color: white;
+        border: none;
+        padding: 0.75rem 1.5rem;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        position: absolute;
+        top: 10px;
+        left: 10px;
+    }
+
+    .botao-voltar:hover {
+        background-color: #7b7d7d;
+    }
+
+    /* Estilo do container principal */
+    .container {
+        background: linear-gradient(135deg, #34495e, #5dade2);
+        color: white;
+        padding: 2rem;
+        border-radius: 15px;
+        margin-bottom: 2rem;
+        text-align: center;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Estilo do título principal */
+    h1 {
+        font-size: 2.2rem;
+        margin-bottom: 0.5rem;
+    }
+
+    /* Estilo do subtítulo e parágrafos */
+    h2 {
+        color: #34495e;
+        font-size: 1.5rem;
+        margin-top: 2rem;
+    }
+
+    p {
+        font-size: 1.1rem;
+    }
+
+    /* Estilo do botão */
+    .botao {
+        background-color: #7f8c8d;
+        color: white;
+        border: none;
+        padding: 0.75rem 1.5rem;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 1rem;
+    }
+
+    /* Efeito hover no botão */
+    .botao:hover {
+        background-color: #7b7d7d;
+    }
+
+    /* Estilo do container de comentários */
+    .comentarios {
+        background: white;
+        padding: 2rem;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        margin-top: 2rem;
+    }
+
+    /* Estilo da textarea */
+    .comentarios textarea {
+        width: 100%;
+        min-height: 100px;
+        padding: 1rem;
+        border: 1px solid #e0e0e0;
+        border-radius: 5px;
+        margin-bottom: 1rem;
+        font-family: inherit;
+        resize: vertical;
+    }
+
+    /* Estilo do título de status da fila */
+    .container h2 {
+        color: white;
+    }
+
+    .comentarios textarea:focus {
+        outline: none;
+        border-color: #5dade2;
+        box-shadow: 0 0 0 2px rgba(93, 173, 226, 0.3);
+    }
+
+    /* Estilo da lista de comentários */
+    #comentarios-lista {
+        margin-top: 2rem;
+        border-top: 1px solid #e0e0e0;
+        padding-top: 1rem;
+    }
+
+    /* Estilo do item de comentário */
+    .comentario-item {
+        background: #f8f9fa;
+        padding: 1rem;
+        border-radius: 5px;
+        margin-bottom: 1rem;
+        border-left: 4px solid #5dade2;
+    }
+</style>
+
+<!-- Botão de voltar no canto superior esquerdo -->
+<button class="botao-voltar" onclick="window.location.href='{% url 'index' %}'">
+    <i class="fas fa-arrow-left"></i> Voltar para a Homepage
+</button>
+
+<div class="container">
+    <h1><i class="fas fa-clipboard-list"></i> Fila</h1>
+    <p>Aqui você pode verificar o status da fila.</p>
+</div>
+
+<div class="container">
+    <h2>Status da Fila:</h2>
+    <p>Atualmente, há <span id="fila-tamanho">0</span> pessoas na fila.</p>
+    <p>Tempo estimado de espera: <span id="fila-tempo">0</span> minutos.</p>
+</div>
+
+<h2>Comentários:</h2>
+<div class="comentarios">
+    <form method="post" id="comentario-form">
+        {% csrf_token %}
+        {{ form.as_p }}  <!-- Usando o formulário de comentário -->
+        <button class="botao" type="submit">Comentar</button>
+    </form>
+</div>
+
+{% endblock %}

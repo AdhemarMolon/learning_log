@@ -1,0 +1,173 @@
+{% block content %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<style>
+    /* Fonte padrão e cor de fundo */
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f7fa;
+        color: #2c3e50;
+        margin: 0;
+        padding: 2rem;
+    }
+
+    /* Container principal */
+    .container {
+        background: linear-gradient(135deg, #2c3e50, #3498db);
+        color: white;
+        padding: 2rem;
+        border-radius: 15px;
+        margin-bottom: 2rem;
+        text-align: center;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+    }
+
+    .container h1, .container h2 {
+        font-size: 2rem;
+        margin-bottom: 0.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+    }
+
+    .container p {
+        font-size: 1rem;
+        opacity: 0.9;
+    }
+
+    /* Detalhes do perfil com ícones */
+    .profile-info {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        margin-top: 1rem;
+        padding-left: 1.5rem;
+    }
+
+    .profile-info p {
+        font-size: 1.1rem;
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .profile-info i {
+        color: #3498db;
+        font-size: 1.3rem;
+    }
+
+    /* Cartão de informações do perfil */
+    .card {
+        width: 300px;
+        padding: 2rem;
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        margin: 0 auto 2rem auto;
+        position: relative;
+    }
+
+    .card .img {
+        width: 100px;
+        height: 100px;
+        background: #3498db;
+        border-radius: 50%;
+        margin: 0 auto 1rem auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .card .img i {
+        color: white;
+        font-size: 2.5rem;
+    }
+
+    .card .card-header {
+        font-size: 1.3rem;
+        font-weight: 600;
+        color: #2c3e50;
+        margin-bottom: 0.5rem;
+    }
+
+    .card .job {
+        font-size: 1rem;
+        color: #3498db;
+        margin-bottom: 1rem;
+    }
+
+    /* Botão estilizado */
+    .card button, .back-button {
+        background-color: #3498db;
+        color: white;
+        padding: 0.75rem 1.5rem;
+        border: none;
+        border-radius: 8px;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin-top: 1rem; /* Margem superior para o botão de voltar */
+    }
+
+    .card button:hover, .back-button:hover {
+        background-color: #2980b9;
+        transform: translateY(-2px);
+    }
+
+    /* Estilo do botão de voltar */
+    .back-button {
+        display: inline-block;
+        text-align: center;
+    }
+
+    /* Decoração para círculos de fundo */
+    .container::before, .container::after {
+        content: "";
+        position: absolute;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.1);
+    }
+
+    .container::before {
+        width: 100px;
+        height: 100px;
+        top: -20px;
+        left: -20px;
+    }
+
+    .container::after {
+        width: 150px;
+        height: 150px;
+        bottom: -30px;
+        right: -30px;
+    }
+</style>
+
+<!-- Container de introdução do perfil -->
+<div class="container">
+    <h1><i class="fas fa-user-circle"></i> Perfil</h1>
+    <p>Veja e gerencie suas informações de perfil</p>
+</div>
+
+<!-- Container de detalhes do perfil -->
+<div class="container profile-info">
+    <h2>Informações do Perfil</h2>
+    <p><i class="fas fa-user"></i> Nome: <span id="perfil-nome">{{ user.username }}</span></p>
+    <p><i class="fas fa-envelope"></i> Email: <span id="perfil-email">{{ user.email }}</span></p>
+</div>
+
+<!-- Cartão do usuário -->
+<div class="card">
+    <div class="img"><i class="fas fa-user-circle"></i></div>
+    <p class="card-header">{{ user.username }}</p>
+    <p class="job">Usuário registrado</p>
+    <button><i class="fas fa-edit"></i> Editar Perfil</button>
+</div>
+
+<!-- Botão de voltar para a homepage -->
+<a href="/" class="back-button"><i class="fas fa-home"></i> Voltar para a Homepage</a>
+
+{% endblock %}
