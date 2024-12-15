@@ -1,29 +1,6 @@
 from django import forms
-from .models import Topic, Entry, Avaliacao, Comentario
+from .models import Avaliacao, Comentario
 
-# Formulário para o modelo Topic
-class TopicForm(forms.ModelForm):
-    class Meta:
-        model = Topic  # Especifica o modelo associado a este formulário
-        fields = ('text',)  # Campos do modelo que serão incluídos no formulário
-        labels = {
-            'text': 'Título do Tópico',  # Rótulo personalizado para o campo 'text'
-        }
-        widgets = {
-            'text': forms.TextInput(attrs={'class': 'form-control'})  # Widget personalizado para o campo 'text'
-        }
-
-# Formulário para o modelo Entry
-class EntryForm(forms.ModelForm):
-    class Meta:
-        model = Entry  # Especifica o modelo associado a este formulário
-        fields = ('text',)  # Campos do modelo que serão incluídos no formulário
-        labels = {
-            'text': 'Texto da Entrada',  # Rótulo personalizado para o campo 'text'
-        }
-        widgets = {
-            'text': forms.Textarea(attrs={'class': 'form-control'})  # Widget personalizado para o campo 'text'
-        }
 
 # Formulário para o modelo Avaliacao
 class AvaliacaoForm(forms.ModelForm):

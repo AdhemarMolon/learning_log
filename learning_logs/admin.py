@@ -1,21 +1,6 @@
 from django.contrib import admin
-from learning_logs.models import Topic, Entry, PerfilUsuario, Avaliacao, Comentario
+from learning_logs.models import PerfilUsuario, Avaliacao, Comentario
 
-# Configuração do admin para o modelo Topic
-@admin.register(Topic)
-class TopicAdmin(admin.ModelAdmin):
-    list_display = ('text', 'date_added')
-    list_filter = ('date_added',)
-    search_fields = ('text',)
-    date_hierarchy = 'date_added'
-
-# Configuração do admin para o modelo Entry
-@admin.register(Entry)
-class EntryAdmin(admin.ModelAdmin):
-    list_display = ('topic', 'text', 'date_added')
-    list_filter = ('topic', 'date_added')
-    search_fields = ('text', 'topic__text')
-    date_hierarchy = 'date_added'
 
 # Configuração do admin para o modelo PerfilUsuario
 @admin.register(PerfilUsuario)
